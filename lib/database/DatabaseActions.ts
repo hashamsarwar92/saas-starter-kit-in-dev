@@ -1,11 +1,10 @@
 import "server-only";
-import { useState } from "react";
 
 import { DatabaseInterface } from "@/lib/database/DatabaseInterface";
 import { User } from "./models/User";
 import { dbActions } from "./firebase/db-actions";
 
-export default function useDatabase(): DatabaseInterface {
+export default function DatabaseActions(): DatabaseInterface {
 
     const createUser = async (user: User) => {
         dbActions.createUser(user);
