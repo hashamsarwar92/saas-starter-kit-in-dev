@@ -7,6 +7,6 @@ export const sartillum_collections = {
 } as const;
 
 export const getSartillumUserRef = ()=>{
-    return db.collection(sartillum_collections.users) as FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>;
+    return db.collection(sartillum_collections.users);
 }
 
