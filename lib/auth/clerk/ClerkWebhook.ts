@@ -101,8 +101,6 @@ export default async function ClerkWebhook(request: Request) {
                     lastName: user.last_name ?? null,
                     imageUrl: user.image_url ?? null,
                     email: email ?? null,
-                    isVerified,
-                    isSubscribed,
                 });
 
                 console.log("User updated", user.id, {

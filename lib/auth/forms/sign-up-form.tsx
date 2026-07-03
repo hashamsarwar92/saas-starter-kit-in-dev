@@ -175,7 +175,7 @@ const SignUpForm = ({
       <div className="flex items-center justify-center gap-2">
         <span className="text-sm text-gray-500">Already have an account?</span>
 
-        <Button variant="link">Sign In</Button>
+        <Button onClick={()=>{router.replace('/sign-in')}} variant="link">Sign In</Button>
       </div>
     </Card>
   );

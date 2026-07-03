@@ -11,7 +11,7 @@ export default function createClerkClientService() {
     const { signUp: clerkSignUp } = useSignUp();
     const { signIn: clerkSignIn } = useSignIn();
     const { signOut } = useAuth();
-    const { user } = useUser();
+    const { user, isLoaded, isSignedIn } = useUser();
 
 
     const signUpWithGoogle = async (successRoute: string) => {
@@ -39,16 +39,21 @@ export default function createClerkClientService() {
     };
 
     const getUserData = () => {
-        if (!user) {
+        if (!isLoaded) {
+            throw new Error("Clerk is still loading user state.");
+        }
+
+        if (!isSignedIn || !user) {
             throw new Error("User is not authenticated.");
         }
+
         return {
             id: user.id,
             email: user.emailAddresses[0]?.emailAddress || "",
             firstName: user.firstName || "",
             lastName: user.lastName || "",
         };
-    }
+    };
 
     const signUp = async (data: SignUpSchemaType) => {
         if (!clerkSignUp) {
