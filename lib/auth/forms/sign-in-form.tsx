@@ -147,7 +147,7 @@ const SignInForm = ({
       <div className="flex items-center justify-center gap-2">
         <span className="text-sm text-gray-500">Don't have an account?</span>
 
-        <Button variant="link">Sign Up</Button>
+        <Button onClick={()=>{router.replace('/sign-up')}} variant="link">Sign Up</Button>
       </div>
     </Card>
   );

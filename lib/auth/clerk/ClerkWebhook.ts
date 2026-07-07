@@ -1,10 +1,11 @@
-
+import "server-only";
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
+import { repository } from "@/lib/database/repository";
 
 export default async function ClerkWebhook(request: Request) {
-    
+    const db = repository();
     const secret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
     if (!secret) {
         console.error("CLERK_WEBHOOK_SIGNING_SECRET is not set in environment variables.");
@@ -56,13 +57,21 @@ export default async function ClerkWebhook(request: Request) {
                     throw new Error("Missing email in user.created");
                 }
 
-                // create user in your database
+                await db.createUser({
+                    id: user.id,
+                    email,
+                    firstName: user.first_name ?? "",
+                    lastName: user.last_name ?? "",
+                    imageUrl: user.image_url ?? "",
+                    role: "user",
+                    isVerified: true,
+                    isSubscribed: false,
+                });
 
                 console.log("User created", user.id, {
                     email,
                     firstName: user.first_name,
                     lastName: user.last_name,
-                    imageUrl: user.image_url,
                 });
 
                 break;
@@ -87,7 +96,12 @@ export default async function ClerkWebhook(request: Request) {
                 const isSubscribed =
                     user.public_metadata?.isSubscribed === true;
 
-                // update user in your database with the new information
+                await db.updateUser(user.id, {
+                    firstName: user.first_name ?? null,
+                    lastName: user.last_name ?? null,
+                    imageUrl: user.image_url ?? null,
+                    email: email ?? null,
+                });
 
                 console.log("User updated", user.id, {
                     firstName: user.first_name,
@@ -113,7 +127,7 @@ export default async function ClerkWebhook(request: Request) {
                     throw new Error("Missing user id in deletion event");
                 }
 
-                // delete user from your database
+                await db.deleteUser(user.id);
 
                 console.log("User deleted", user.id);
                 break;
