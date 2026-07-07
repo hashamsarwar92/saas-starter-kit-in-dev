@@ -1,13 +1,13 @@
 
 import { db } from "@/lib/database/firebase/firebase-admin";
 import { User } from "@/lib/database/models/User";
-import { getSartillumUserRef } from "./collections";
+import { getUserRef } from "./collections";
 
 
 
-export const SartillumUserActions = () => {
+export const UserActions = () => {
 
-    const usersRef = getSartillumUserRef();
+    const usersRef = getUserRef();
 
     return {
         async createUser(user: Omit<User, "createdAt" | "updatedAt">) {

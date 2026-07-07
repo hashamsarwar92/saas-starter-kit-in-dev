@@ -16,7 +16,7 @@ const isPublicRoute = createRouteMatcher([
 ]);
 
 const isWebhookRoute = (pathname: string) =>
-  pathname.startsWith("/api/clerk/webhooks") ||
+  pathname.startsWith("/api/webhooks/clerk") ||
   pathname.startsWith("/api/stripe/webhooks");
 
 export default clerkMiddleware(async (auth, request) => {

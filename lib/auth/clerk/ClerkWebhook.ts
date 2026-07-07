@@ -57,7 +57,7 @@ export default async function ClerkWebhook(request: Request) {
                     throw new Error("Missing email in user.created");
                 }
 
-                await db.createSartillumUser({
+                await db.createUser({
                     id: user.id,
                     email,
                     firstName: user.first_name ?? "",
@@ -96,7 +96,7 @@ export default async function ClerkWebhook(request: Request) {
                 const isSubscribed =
                     user.public_metadata?.isSubscribed === true;
 
-                await db.updateSartillumUser(user.id, {
+                await db.updateUser(user.id, {
                     firstName: user.first_name ?? null,
                     lastName: user.last_name ?? null,
                     imageUrl: user.image_url ?? null,
@@ -127,7 +127,7 @@ export default async function ClerkWebhook(request: Request) {
                     throw new Error("Missing user id in deletion event");
                 }
 
-                await db.deleteSartillumUser(user.id);
+                await db.deleteUser(user.id);
 
                 console.log("User deleted", user.id);
                 break;

@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import ProfileCard from "@/lib/auth/components/ProfileCard";
 import SignOutButton from "@/lib/auth/components/SignOutButton";
+import { UserButton } from "@clerk/nextjs";
 
 export default function DashboardLayout({
   children,
@@ -64,6 +65,7 @@ export default function DashboardLayout({
 
             {/* User Info */}
             <ProfileCard/>
+            <UserButton/>
 
             <nav className="space-y-2">
               {navItems.map((item) => {
