@@ -1,7 +1,6 @@
+import { UserRoleType } from "../types";
 
 
-import { z } from "zod";
-export type UserRole = "user" | "admin";
 
 
 export interface User {
@@ -12,7 +11,7 @@ export interface User {
     lastName: string | null;
     imageUrl: string | null;
 
-    role: UserRole;
+    role: UserRoleType;
     isVerified: boolean; // Optional field to track if the user's email is verified
     isSubscribed: boolean; // Optional field to track if the user has an active subscription
 
