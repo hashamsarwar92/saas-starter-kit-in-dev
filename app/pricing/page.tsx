@@ -35,7 +35,7 @@ export default function Pricing() {
   async function handleSubscribe(priceId: string | null) {
     setLoading(priceId);
     try {
-      checkoutFunc("/api/stripe/checkout", priceId!);
+      await checkoutFunc("/api/stripe/checkout", priceId!);
     } catch (error) {
       console.error("Subscription error:", error);
       alert("Failed to start checkout. Please try again.");
