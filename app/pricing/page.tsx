@@ -77,7 +77,7 @@ bg-[#0A0A0A]
               </ul>
 
               <button
-                onClick={() => handleSubscribe(plan.priceId)}
+                onClick={() => handleSubscribe("price_1Td7erD0vTr3liAbgEq4F2re")}
                 className="
 mt-8
 w-full
