@@ -62,15 +62,15 @@ export default clerkMiddleware(async (auth, request) => {
   // 4. Subscription check for dashboard
   if (userId && isDashboardRoute(request)) {
 
-    const isSubscribed =
-      sessionClaims?.metadata?.isSubscribed === true;
+    // const isSubscribed =
+    //   sessionClaims?.metadata?.isSubscribed === true;
 
 
-    if (!isSubscribed) {
-      return NextResponse.redirect(
-        new URL("/pricing", request.url)
-      );
-    }
+    // if (!isSubscribed) {
+    //   return NextResponse.redirect(
+    //     new URL("/pricing", request.url)
+    //   );
+    // }
   }
 
 

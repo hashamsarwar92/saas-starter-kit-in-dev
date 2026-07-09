@@ -27,7 +27,7 @@ export interface Repository {
   deactivatePlan: (id: string) => Promise<void>;
 
   createSubscription: (
-    subscription: Omit<Subscription, "id" | "createdAt" | "updatedAt">
+    subscription: Omit<Subscription,  "createdAt" | "updatedAt">
   ) => Promise<void>;
   getSubscriptionById: (id: string) => Promise<Subscription | null>;
   updateSubscription: (

@@ -65,7 +65,8 @@ export default async function StripeWebhook(secret: string, req: Request) {
                 const lineItem = subscription.items.data[0];
                 const price = lineItem.price;
 
-                const subscriptionData: Omit<Subscription, "id" | "createdAt" | "updatedAt"> = {
+                const subscriptionData: Omit<Subscription, "createdAt" | "updatedAt"> = {
+                    id: subscription.id,
                     uid: clerkUserId,
                     stripeCustomerId: customerId,
                     stripeSubscriptionId: subscriptionId,
