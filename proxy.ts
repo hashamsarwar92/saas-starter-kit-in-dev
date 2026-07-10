@@ -15,7 +15,7 @@ const isPublicRoute = createRouteMatcher([
 
 const isWebhookRoute = (pathname: string) =>
   pathname.startsWith("/api/webhooks/clerk") ||
-  pathname.startsWith("/api/stripe/webhooks");
+  pathname.startsWith("/api/webhooks/stripe");
 
 
 const isDashboardRoute = createRouteMatcher([
