@@ -6,15 +6,15 @@ export const collections = {
     plans: "test_plans",
 } as const;
 
-export const getUserRef = ()=>{
+export const userRef = ()=>{
     return db.collection(collections.users);
 }
 
-export const getSubscriptionRef = () => {
+export const subscriptionRef = () => {
     return db.collection(collections.subscriptions);
 };
 
-export const getPlanRef = () => {
+export const planRef = () => {
     return db.collection(collections.plans);
 };
 

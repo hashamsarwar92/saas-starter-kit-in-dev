@@ -1,6 +1,6 @@
 "use client";
 
-import { checkoutFunc } from "@/lib/payment/stripe/checkout_func";
+import { StripeCheckoutApiCall } from "@/lib/api-calls/stripe-checkout-api-call";
 import { useState } from "react";
 
 const plans = [
@@ -35,7 +35,7 @@ export default function Pricing() {
   async function handleSubscribe(priceId: string | null) {
     setLoading(priceId);
     try {
-      await checkoutFunc("/api/stripe/checkout", priceId!);
+      await StripeCheckoutApiCall("/api/stripe/checkout", priceId!);
     } catch (error) {
       console.error("Subscription error:", error);
       alert("Failed to start checkout. Please try again.");
@@ -77,7 +77,9 @@ bg-[#0A0A0A]
               </ul>
 
               <button
-                onClick={() => handleSubscribe("price_1Td7erD0vTr3liAbgEq4F2re")}
+                onClick={() =>
+                  handleSubscribe("price_1Td7erD0vTr3liAbgEq4F2re")
+                }
                 className="
 mt-8
 w-full

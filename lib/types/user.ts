@@ -1,8 +1,3 @@
-import { UserRoleType } from "../types";
-
-
-
-
 export interface User {
     id: string; // Clerk userId
     email: string;
@@ -11,7 +6,7 @@ export interface User {
     lastName: string | null;
     imageUrl: string | null;
 
-    role: UserRoleType;
+    role: string;
     isVerified: boolean; // Optional field to track if the user's email is verified
     isSubscribed: boolean; // Optional field to track if the user has an active subscription
 

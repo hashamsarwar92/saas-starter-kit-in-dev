@@ -1,6 +1,4 @@
 
-import { PlanType, StatusType, IntervalType } from "../types";
-
 export interface Subscription {
   id: string; // Firestore document ID
 
@@ -13,11 +11,11 @@ export interface Subscription {
   stripePriceId: string;
 
   // Plan details
-  plan: PlanType;
-  status: StatusType;
+  plan: string;
+  status: string;
 
   // Billing cycle
-  interval: IntervalType;
+  interval: string;
 
   currentPeriodStart: Date;
   currentPeriodEnd: Date;

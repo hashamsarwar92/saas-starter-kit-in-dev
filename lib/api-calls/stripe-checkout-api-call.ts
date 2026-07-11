@@ -1,6 +1,6 @@
 
 
-export const checkoutFunc = async (apiRoute: string, priceId: string) => {
+export const StripeCheckoutApiCall = async (apiRoute: string, priceId: string) => {
 
     if (!apiRoute) {
         throw new Error("API route is required for subscription.");
