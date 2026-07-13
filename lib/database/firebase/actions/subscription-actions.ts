@@ -1,5 +1,5 @@
 
-import { Subscription } from "@/dep/types";
+import { Subscription } from "@/lib/types";
 
 
 
