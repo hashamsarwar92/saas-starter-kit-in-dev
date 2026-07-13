@@ -4,9 +4,7 @@ import { Button } from "@/lib/auth/ui";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
 import Navbar from "./components/Navbar";
-import { useEffect } from "react";
-import { seedPlansAction } from "@/lib/others/upload-plans";
-import { plans } from "@/lib/others/planss";
+
 
 export default function HomePage() {
   const router = useRouter();
