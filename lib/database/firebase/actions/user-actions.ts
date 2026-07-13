@@ -1,5 +1,5 @@
 
-import { User } from "@/dep/types";
+import { User } from "@/lib/types";
 
 export const UserActions = (ref: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData, FirebaseFirestore.DocumentData>) => {
     const createUser = async (user: Omit<User, "createdAt" | "updatedAt">) => {

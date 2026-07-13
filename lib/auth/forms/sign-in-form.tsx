@@ -29,6 +29,7 @@ const SignInForm = ({
   const router = useRouter();
   const [authErrors, setAuthErrors] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSigningInWithGoogle, setIsSigningInWithGoogle] = useState(false);
 
   const {
     handleSubmit,
@@ -126,7 +127,7 @@ const SignInForm = ({
           className="w-full flex items-center justify-center gap-2"
           onClick={handleSignInWithGoogle}
         >
-          Sign In with Google
+          {isSigningInWithGoogle ? "Signing in with Google..." : "Sign In with Google"}
         </Button>
       </form>
       <div>

@@ -1,4 +1,4 @@
-import { Plan } from "@/dep/types";
+import { Plan } from "@/lib/types";
 
 export const PlanActions = (ref: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData, FirebaseFirestore.DocumentData>) => {
 

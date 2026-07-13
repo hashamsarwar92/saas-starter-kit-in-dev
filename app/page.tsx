@@ -4,6 +4,9 @@ import { Button } from "@/lib/auth/ui";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
 import Navbar from "./components/Navbar";
+import { useEffect } from "react";
+import { seedPlansAction } from "@/lib/others/upload-plans";
+import { plans } from "@/lib/others/planss";
 
 export default function HomePage() {
   const router = useRouter();
@@ -18,17 +21,13 @@ export default function HomePage() {
 
       {/* Navbar */}
       <header className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-8 py-6">
-
         <div className="flex items-center gap-3">
           <div className="h-8 w-8 rounded-lg bg-black text-white flex items-center justify-center text-sm font-bold">
             N
           </div>
 
-          <span className="font-semibold text-lg">
-            Nova
-          </span>
+          <span className="font-semibold text-lg">Nova</span>
         </div>
-
 
         {isSignedIn && (
           <Button
@@ -47,16 +46,13 @@ export default function HomePage() {
             Dashboard
           </Button>
         )}
-
       </header>
-
 
       {/* Main */}
       <main className="relative z-10 min-h-screen flex items-center justify-center px-6">
-
         <div className="max-w-2xl text-center space-y-7">
-
-          <div className="
+          <div
+            className="
             inline-flex
             items-center
             gap-2
@@ -68,41 +64,41 @@ export default function HomePage() {
             text-xs
             font-medium
             text-blue-700
-          ">
+          "
+          >
             <span className="h-1.5 w-1.5 rounded-full bg-blue-600" />
             Secure platform
           </div>
 
-
-          <h1 className="
+          <h1
+            className="
             text-4xl
             sm:text-5xl
             font-semibold
             tracking-tight
             leading-tight
-          ">
+          "
+          >
             Simple tools.
             <br />
             Powerful workflow.
           </h1>
 
-
-          <p className="
+          <p
+            className="
             mx-auto
             max-w-lg
             text-base
             text-slate-500
             leading-relaxed
-          ">
-            Manage your projects, access insights,
-            and stay productive with a secure
-            modern workspace.
+          "
+          >
+            Manage your projects, access insights, and stay productive with a
+            secure modern workspace.
           </p>
-
 
           {!isSignedIn && (
             <div className="flex justify-center gap-3 pt-3">
-
               <Button
                 onClick={() => router.push("/sign-up")}
                 className="
@@ -119,7 +115,6 @@ export default function HomePage() {
                 Get Started
               </Button>
 
-
               <Button
                 variant="outline"
                 onClick={() => router.push("/sign-in")}
@@ -135,23 +130,19 @@ export default function HomePage() {
               >
                 Sign In
               </Button>
-
             </div>
           )}
 
-
           {/* Minimal Feature Row */}
-          <div className="
+          <div
+            className="
             grid
             grid-cols-3
             gap-3
             pt-10
-          ">
-            {[
-              "Secure",
-              "Fast",
-              "Reliable"
-            ].map((item) => (
+          "
+          >
+            {["Secure", "Fast", "Reliable"].map((item) => (
               <div
                 key={item}
                 className="
@@ -168,11 +159,8 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-
         </div>
-
       </main>
-
     </div>
   );
 }

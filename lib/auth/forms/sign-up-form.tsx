@@ -28,6 +28,7 @@ const SignUpForm = ({
   const router = useRouter();
   const [authErrors, setAuthErrors] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSigningUpWithGoogle, setIsSigningUpWithGoogle] = useState(false);
 
   const {
     handleSubmit,
@@ -71,6 +72,8 @@ const SignUpForm = ({
   };
 
   const handleSignUpWithGoogle = async () => {
+    setAuthErrors(null);
+    setIsSigningUpWithGoogle(true);
     try {
       await onSignUpWithGoogle();
     } catch (err: unknown) {
@@ -79,6 +82,8 @@ const SignUpForm = ({
       } else {
         setAuthErrors("An unexpected error occurred while signing up with Google.");
       }
+    } finally {
+      setIsSigningUpWithGoogle(false);
     }
   }
 
@@ -153,8 +158,9 @@ const SignUpForm = ({
           variant="outline"
           className="w-full flex items-center justify-center gap-2"
           onClick={handleSignUpWithGoogle}
+          disabled={isSigningUpWithGoogle}
         >
-          Sign Up with Google
+          {isSigningUpWithGoogle ? "Signing up with Google..." : "Sign Up with Google"}
         </Button>
       </form>
       <div>
