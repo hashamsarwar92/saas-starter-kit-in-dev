@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Button from "@/lib/auth/ui/Button";
 import { useUser } from "@clerk/nextjs";
+import SignOutButton from "@/lib/auth/components/SignOutButton";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -90,6 +91,7 @@ export default function Navbar() {
           {/* Action Button (Desktop Only) */}
           <div className="hidden md:flex items-center gap-3">
             <ActionButton />
+            <SignOutButton/>
           </div>
 
           {/* Mobile Interactive Trigger */}
@@ -128,6 +130,7 @@ export default function Navbar() {
 
             <div className="pt-2">
               <ActionButton />
+              <SignOutButton/>
             </div>
           </div>
         )}

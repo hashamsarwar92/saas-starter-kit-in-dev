@@ -51,12 +51,14 @@ export default async function StripeWebhook(signature: string, body: string, sec
         }
         case "invoice.paid": {
             const invoice = event.data.object as Stripe.Invoice;
+            const subscriptionId = invoice.parent?.subscription_details?.subscription as string | null;
+            if (!subscriptionId) throw new Error("Missing subscription in invoice");
             const stripeCustomerId = invoice.customer as string | null;
             if (!stripeCustomerId) throw new Error("Missing customer in invoice");
             const stripeCustomer = await stripe.customers.retrieve(stripeCustomerId);
             const userId = (stripeCustomer as Stripe.Customer).metadata.userId;
             await repo.updateSubscriptionStatus(
-                stripeCustomerId,
+                subscriptionId,
                 userId,
                 true
             );

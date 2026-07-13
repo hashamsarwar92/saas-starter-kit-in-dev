@@ -3,76 +3,54 @@ import { NextResponse } from "next/server";
 
 const isPublicRoute = createRouteMatcher([
   "/",
-  "/sign-in(.*)",
-  "/sign-up(.*)",
-  "/forgot-password(.*)",
   "/terms(.*)",
   "/privacy(.*)",
   "/pricing(.*)",
-  "/business-pricing(.*)",
-  "/subscriptions(.*)",
 ]);
 
-const isWebhookRoute = (pathname: string) =>
-  pathname.startsWith("/api/webhooks/clerk") ||
-  pathname.startsWith("/api/webhooks/stripe");
+const isNonAuthRoute = createRouteMatcher([
+  "/sign-in(.*)",
+  "/sign-up(.*)",
+  "/forgot-password(.*)",
+]);
 
-
-const isDashboardRoute = createRouteMatcher([
+const isSubscribedRoute = createRouteMatcher([
   "/dashboard(.*)",
 ]);
 
+const isWebhookRoute = (pathname: string) =>
+  pathname.startsWith("/api/webhooks");
+
 
 export default clerkMiddleware(async (auth, request) => {
+
+  // 1. Get the pathname from the request URL
   const url = new URL(request.url);
   const pathname = url.pathname;
 
 
-  // 1. Allow webhooks without auth
-  if (isWebhookRoute(pathname)) {
-    return NextResponse.next();
-  }
+  // 2. Allow webhooks without auth
+  if (isWebhookRoute(pathname)) return NextResponse.next();
 
+  // 3. Allow non-auth routes without auth
+  if (isPublicRoute(request)) return NextResponse.next();
 
+  // 4. Get user and session claims
   const { userId, sessionClaims } = await auth();
 
+  if (!userId && isNonAuthRoute(request)) return NextResponse.next();
 
-  // 2. Redirect logged-in users away from auth pages
-  if (userId && isPublicRoute(request)) {
-    if (
-      pathname !== "/" &&
-      !pathname.startsWith("/pricing") &&
-      !pathname.startsWith("/business-pricing")
-    ) {
-      return NextResponse.redirect(
-        new URL("/dashboard", request.url)
-      );
-    }
-  }
+  if (userId && isNonAuthRoute(request)) return NextResponse.redirect(
+    new URL("/dashboard", request.url)
+  );
 
+  if (!userId && isSubscribedRoute(request)) return NextResponse.redirect(
+    new URL("/sign-in", request.url)
+  );
 
-  // 3. Protect private routes
-  if (!isPublicRoute(request) && !userId) {
-    return NextResponse.redirect(
-      new URL("/sign-in", request.url)
-    );
-  }
-
-
-  // 4. Subscription check for dashboard
-  if (userId && isDashboardRoute(request)) {
-
-    // const isSubscribed =
-    //   sessionClaims?.metadata?.isSubscribed === true;
-
-
-    // if (!isSubscribed) {
-    //   return NextResponse.redirect(
-    //     new URL("/pricing", request.url)
-    //   );
-    // }
-  }
-
+  if (userId && !sessionClaims?.isSubscribed && isSubscribedRoute(request)) return NextResponse.redirect(
+    new URL("/pricing", request.url)
+  );
 
   return NextResponse.next();
 });
